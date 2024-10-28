@@ -7,57 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="card">
-        <div class="search">
-            <input type="text" id="city-input" placeholder="Enter city name">
-            <button id="search-btn"><img src="images/search.png"></button>
-        </div>
-        <div class="weather">
-            <img src="images/rain.png" class="weather-icon">
-            <h1 class="temp">29°F</h1>
-            <h2 class="city">New York</h2>
-            <div class="details">
-                <div class="col">
-                    <img src="images/wind.png" alt="">
-                </div>
-                <p class="wind">50km/hr</p>
-                <p>Wind Speed</p>
+    <div class="container">
+        <div class="card">
+            <div class="search">
+                <input type="text" id="city-input" placeholder="Enter city name">
+                <button id="search-btn"><img src="images/search.png" alt="Search"></button>
             </div>
+            <div class="weather">
+                <img src="images/default.png" class="weather-icon">
+                <h1 class="temp">--°C</h1>
+                <h2 class="city">City</h2>
+                <div class="details">
+                    <p class="wind">Wind: -- km/hr</p>
+                    <p class="humidity">Humidity: --%</p>
+                    <p class="pressure">Pressure: -- hPa</p>
+                </div>
+                <div class="unit-toggle">
+                    <button id="toggle-unit">Switch to °F</button>
+                </div>
+            </div>
+            
+            <button id="get-location">Get Weather for My Location</button>
         </div>
-
-        <script>
-            const apiKey = "a953e70984cfaf068e96f6aad9483bf1";
-
-            // Function to fetch weather data
-            async function checkWeather(city) {
-                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${city}`;
-                const response = await fetch(`${apiUrl}&appid=${apiKey}`);
-                const data = await response.json();
-                console.log(data);
-
-                // Update the UI with fetched data
-                document.querySelector('.temp').textContent = `${Math.round(data.main.temp)}°C`;
-                document.querySelector('.city').textContent = data.name;
-                document.querySelector('.wind').textContent = `${data.wind.speed} km/hr`;
-                document.querySelector('.weather-icon').src = `images/${data.weather[0].main.toLowerCase()}.png`;
-            }
-
-            // Event listener for the search button
-            document.getElementById('search-btn').addEventListener('click', () => {
-                const city = document.getElementById('city-input').value;
-                if (city) {
-                    checkWeather(city);
-                } else {
-                    alert("Please enter a city name");
-                }
-            });
-
-            // Optionally check weather for a default city
-            checkWeather("New York");
-
-        </script>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
